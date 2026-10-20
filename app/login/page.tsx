@@ -138,7 +138,8 @@ export default function LoginPage() {
       }
       router.push("/");
     } catch (err) {
-      setLocalError(error || (err instanceof Error ? err.message : "Error"));
+      // Prefer the thrown message — AuthContext `error` state is not updated yet in this tick
+      setLocalError(err instanceof Error ? err.message : "Error");
     }
   };
 

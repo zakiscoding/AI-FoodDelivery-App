@@ -201,8 +201,26 @@ ALTER TABLE carts ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow users to read their own profile" ON users
   FOR SELECT USING (true);
 
+CREATE POLICY "Allow users to insert" ON users
+  FOR INSERT WITH CHECK (true);
+
 CREATE POLICY "Allow users to update their own profile" ON users
   FOR UPDATE USING (true);
+
+CREATE POLICY "Allow customers insert" ON customers
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow customers read" ON customers
+  FOR SELECT USING (true);
+
+CREATE POLICY "Allow drivers insert" ON drivers
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow drivers read" ON drivers
+  FOR SELECT USING (true);
+
+CREATE POLICY "Allow drivers update" ON drivers
+  FOR UPDATE USING (true) WITH CHECK (true);
 
 CREATE POLICY "Allow public read access to restaurants" ON restaurants
   FOR SELECT USING (true);

@@ -64,11 +64,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ action: "login", email, password }),
       });
 
+      const data = (await response.json()) as { user?: User; error?: string };
+
       if (!response.ok) {
-        throw new Error("Login failed");
+        throw new Error(data.error || "Login failed");
       }
 
-      const data = (await response.json()) as { user?: User };
       setUser(data.user || null);
       if (data.user) {
         localStorage.setItem("currentUser", JSON.stringify(data.user));
@@ -98,11 +99,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ action: "signup", email, password, name, role }),
       });
 
+      const data = (await response.json()) as { user?: User; error?: string };
+
       if (!response.ok) {
-        throw new Error("Signup failed");
+        throw new Error(data.error || "Signup failed");
       }
 
-      const data = (await response.json()) as { user?: User };
       setUser(data.user || null);
       if (data.user) {
         localStorage.setItem("currentUser", JSON.stringify(data.user));

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require("fs");
 const path = require("path");
-const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 const { createClient } = require("@supabase/supabase-js");
 
 function loadEnvFile(filePath) {
@@ -34,7 +34,8 @@ function loadEnvFile(filePath) {
 }
 
 function hashPassword(password) {
-  return crypto.createHash("sha256").update(password).digest("hex");
+  // Must match app/api/auth (bcrypt). Legacy SHA-256 hashes are still accepted at login.
+  return bcrypt.hashSync(password, 12);
 }
 
 const projectRoot = path.resolve(__dirname, "..");
